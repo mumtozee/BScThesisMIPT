@@ -1,0 +1,45 @@
+% если хочется, можно поставить 14pt
+\documentclass[12pt, dvipsnames]{extarticle}
+
+\input{preambule.tex}
+
+\begin{document}
+	\setcounter{page}{2}
+	
+	\vspace*{\fill}
+	\begin{abstract}
+		В работе ставится задача извлечения пользовательских атрибутов из диалоговых реплик в структурированном формате, для дальнейшего использования их в персонализованных диалоговых агентах или в рекомендательных системах. Из-за отсутствия данных с качественной разметкой, используется техника разметки c помощью моделей из других задач, добавляющая шум в данные. Предлагаются два способа решения поставленной задачи на основе трансформеров: решение с одной моделью (GenAE) и с двумя моделями (PipelineAE). Обсуждаются недостатки и преимущества обоих подходов. По итогу проведенных экспериментов получены результаты выше чем у существующих подходов решения данной задачи. Предложены методы улучшения качества разработанного framework'a и направления для дальнейших исследований.
+	\end{abstract}
+	\vspace*{\fill}
+	
+	\newpage
+	\tableofcontents
+	
+        \newpage
+	\include{diploma/glossary}
+	
+        \newpage
+	\include{diploma/intro}
+
+        \newpage 
+	\include{diploma/01_RelatedWork}
+        \newpage
+        \include{diploma/02_Data}
+        \newpage
+        \include{diploma/03_Methodology}
+        \newpage
+        \include{diploma/04_Experiments}
+        \newpage
+        \include{diploma/05_Results}
+        \newpage
+        \include{diploma/06_Applications}
+
+        \newpage
+        \include{diploma/conclusion}
+
+	\newpage
+	\printbibliography
+
+        \newpage
+        \include{diploma/07_Appendix}
+\end{document}

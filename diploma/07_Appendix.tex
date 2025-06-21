@@ -1,0 +1,47 @@
+\appendix
+\chapter{\centering\normalsize{ПРИЛОЖЕНИЕ}}
+\addcontentsline{toc}{section}{ПРИЛОЖЕНИЕ}
+\section{Дополнительные эксперименты на датасете WikiNRE} \label{AppendixA}
+
+Для оценки качества GenAE в случае консистентного порядка триплетов, был рассмотрен датасет WikiNRE собранный на основе данных из Wikipedia и графа знаний Wikidata. В качестве генеративной модели был взят T5 v1.1 small и обучен в течение 4 эпох c AdamW c \texttt{lr=0.00002} и \texttt{weight\_decay=0.01} на 4 картах GeForce GTX 1080 Ti. Размер batch'a на каждое вычислительное устройство равен 16, без learning rate warmup.
+
+Результаты представлены в Tаблице \ref{table:wikinre_results}. Для сравнения брались модели из статьи \cite{genie}, которые являются наиболее популярными в построении графов знаний. Можно увидеть, что с наивным методом обучения GenAE уступает только GenIE с BART-large \cite{bart} и с constrained beam-search \cite{seq2seq}. Тем не менее, GenAE работает лучше всех подходов основанных на нескольких моделях в виде pipeline. Результат GenAE в этом датасете намного выше, так как в нем нет шума и соблюдается порядок триплетов если их несколько во входной реплике. Тем не менее, задача поставленная в датасете схожа с основной задачей данной работы только форматом извлечения информации, а домен полностью отличается: в WikiNRE не разговорный домен и предикаты общие и не относятся к персоне определенного человека.
+
+\begin{table}[!ht]
+\centering
+\begin{tabular}{c c c c}
+    & Precision & Recall & F1 \\
+    \hline
+    \hline
+    NeuralEL + CNN & 36.89 & 35.21 & 36.03 \\
+    \hline
+    SotA Pipeline & 67.43 & 54.22 & 60.11  \\
+    \hline
+    GenAE c T5-small & 79.29 & 73.62 & 76.35 \\
+    \hline
+    GenIE & \textbf{88.18} & \textbf{88.31} & \textbf{88.24}  \\
+    \hline
+\end{tabular}
+\caption{Результаты извлечения триплетов на датасете WikiNRE \cite{trisedya-etal-2019-neural}. Все показатели кроме GenAE взяты из статьи \cite{genie} и \cite{trisedya-etal-2019-neural}.}
+\label{table:wikinre_results}
+\end{table}
+
+\newpage
+\section{Дополнительные эксперименты на датасете DialogueNLI c ChatGPT} \label{AppendixB}
+
+\begin{table}[!ht]
+\centering
+\begin{tabular}{c c c c c c}
+    & Precision & Recall & F1 & Accuracy & BLEU-1 \\
+    \hline
+    \hline
+    ChatGPT & 13.85 & 29.63 & 18.88 & 17.0 & 76.87 \\
+    \hline
+    GenAE & \textbf{43.14} & 40.74 & 41.9 & \textbf{42.0} & 76.11  \\
+    \hline
+    PipelineAE & 42.45 & \textbf{54.63} & \textbf{47.77} & 40.0 & \textbf{83.37} \\
+    \hline
+\end{tabular}
+\caption{Результаты извлечения триплетов на датасете DialogueNLI.}
+\label{table:chatgpt_results}
+\end{table}
